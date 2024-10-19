@@ -82,6 +82,7 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("user not found!"));
 
         userMapper.updateUser(user, request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
