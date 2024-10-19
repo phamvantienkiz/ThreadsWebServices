@@ -19,7 +19,7 @@ public class Comment {
     String id;
 
     @ManyToOne
-    @JoinColumn(name = "thread_id", nullable = false)
+    @JoinColumn(name = "thread_id")
     Thread thread;
 
     @ManyToOne
@@ -33,8 +33,14 @@ public class Comment {
     @Column(name = "content", nullable = false, length = 1000)
     String content;
 
+    @Column(name = "image_url")
+    String imageUrl;
+
     @Column(name = "like_count", nullable = false)
     int linkCount;
+
+    @Column(name = "repost_count", nullable = false)
+    int repostCount;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<CommentInteraction> interactions;
