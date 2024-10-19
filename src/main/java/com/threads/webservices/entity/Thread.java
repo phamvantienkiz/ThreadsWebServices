@@ -30,6 +30,9 @@ public class Thread {
     @Column(name = "like_count", nullable = false)
     int likeCount;
 
+    @Column(name = "repost_count", nullable = false)
+    int repostCount;
+
     @Column(name = "create_at", nullable = false)
     LocalDateTime createAt;
 
