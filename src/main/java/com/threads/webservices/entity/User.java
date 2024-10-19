@@ -24,6 +24,20 @@ public class User {
     LocalDate dob;
     String imgUrl;
     Set<String> roles; //Set giong nhu list nhung set se dam bao k co gia tri trung lap trong list
-
     //Chu y vao lifecycle de clean lai khi update cac thuoc tinh co su dung mapstruct (bai 9 8:15)
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<Thread> threads;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<Comment> comments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<Notification> notifications;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<ThreadInteraction> threadInteractions;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<CommentInteraction> commentInteractions;
 }
