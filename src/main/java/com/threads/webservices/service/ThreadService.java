@@ -56,33 +56,33 @@ public class ThreadService {
         return threads.stream().map(ThreadResponse::fromThread).toList();
     }
 
-    public ThreadResponse updateThread(String threadId, ThreadUpdateRequest request){
-        var context = SecurityContextHolder.getContext();
-        String username = context.getAuthentication().getName();
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
-
-        Thread thread = threadRepository.findById(threadId)
-                        .orElseThrow(() -> new AppException(ErrorCode.THREAD_NOT_EXISTED));
-
-        if (!thread.getUser().getId().equals(user.getId())){
-            throw new AppException(ErrorCode.THREAD_NOT_ALLOWED);
-        }
-
-        thread.setContent(request.getContent());
-
-        // Cập nhật imageUrl nếu có
-        if (request.getImageUrl() != null && !request.getImageUrl().isEmpty()) {
-            thread.setImageUrl(request.getImageUrl());
-        } else {
-            thread.setImageUrl(null);  // Xóa ảnh nếu không có
-        }
-
-        thread.setUpdateAt(LocalDateTime.now());
-
-        return ThreadResponse.fromThread(threadRepository.save(thread));
-    }
+//    public ThreadResponse updateThread(String threadId, ThreadUpdateRequest request){
+//        var context = SecurityContextHolder.getContext();
+//        String username = context.getAuthentication().getName();
+//
+//        User user = userRepository.findByUsername(username)
+//                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+//
+//        Thread thread = threadRepository.findById(threadId)
+//                        .orElseThrow(() -> new AppException(ErrorCode.THREAD_NOT_EXISTED));
+//
+//        if (!thread.getUser().getId().equals(user.getId())){
+//            throw new AppException(ErrorCode.THREAD_NOT_ALLOWED);
+//        }
+//
+//        thread.setContent(request.getContent());
+//
+//        // Cập nhật imageUrl nếu có
+//        if (request.getImageUrl() != null && !request.getImageUrl().isEmpty()) {
+//            thread.setImageUrl(request.getImageUrl());
+//        } else {
+//            thread.setImageUrl(null);  // Xóa ảnh nếu không có
+//        }
+//
+//        thread.setUpdateAt(LocalDateTime.now());
+//
+//        return ThreadResponse.fromThread(threadRepository.save(thread));
+//    }
 
     public void deleteThread(String threadId){
         var context = SecurityContextHolder.getContext();
