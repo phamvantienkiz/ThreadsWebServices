@@ -33,12 +33,12 @@ public class ThreadController {
                 .build();
     }
 
-    @PutMapping("/{threadId}")
-    public ApiResponse<ThreadResponse> updateThread(@PathVariable String threadId, @RequestBody ThreadUpdateRequest request){
-        return ApiResponse.<ThreadResponse>builder()
-                .result(threadService.updateThread(threadId, request))
-                .build();
-    }
+//    @PutMapping("/{threadId}")
+//    public ApiResponse<ThreadResponse> updateThread(@PathVariable String threadId, @RequestBody ThreadUpdateRequest request){
+//        return ApiResponse.<ThreadResponse>builder()
+//                .result(threadService.updateThread(threadId, request))
+//                .build();
+//    }
 
     @DeleteMapping("/{threadId}")
     public ApiResponse<String> deleteThread(@PathVariable String threadId){

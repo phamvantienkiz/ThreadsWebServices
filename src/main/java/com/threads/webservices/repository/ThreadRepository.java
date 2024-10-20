@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ThreadRepository extends JpaRepository<Thread, String> {
     List<Thread> findByUserId(String userId);
+
+    List<Thread> findByPreviousThread(String previousThread);
 }
