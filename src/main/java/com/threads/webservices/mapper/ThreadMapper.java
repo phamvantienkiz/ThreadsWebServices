@@ -17,10 +17,6 @@ public interface ThreadMapper {
     @Mapping(target = "user", ignore = true) // thiet lap bang SecurityContextHolder
     Thread toThread(ThreadCreationRequest request);
 
-    @Mapping(source = "user", target = "userResponse")
-    @Mapping(source = "socialFiles", target = "socialFileResponses")
-    ThreadResponse toThreadResponse(Thread thread);
-
     void updateThread(@MappingTarget Thread thread, ThreadUpdateRequest request);
 
 }

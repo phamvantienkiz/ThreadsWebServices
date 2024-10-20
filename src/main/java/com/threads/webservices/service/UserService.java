@@ -58,14 +58,14 @@ public class UserService {
         User user = userRepository.findByUsername(name)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-        return userMapper.toUserResponse(user);
+        return UserResponse.fromUser(user);
 
     }
 
     @PreAuthorize("hasRole('ADMIN')")// neu la ADMIN cho phep goi method nguoc lai khong goi method
     public List<UserResponse> getUsers(){
         log.info("In method get Users");
-        return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
+        return userRepository.findAll().stream().map(UserResponse::fromUser).toList();
     }
 
     // goi method truoc roi kiem tra, neu id va jwt la user dang dang nhap thi return ket qua
@@ -73,7 +73,7 @@ public class UserService {
     @PostAuthorize("returnObject.username == authentication.name")
     public UserResponse getUser(String id){
         log.info("In method get user by id");
-        return userMapper.toUserResponse(userRepository.findById(id)
+        return UserResponse.fromUser(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
     }
 
@@ -84,7 +84,7 @@ public class UserService {
         userMapper.updateUser(user, request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        return userMapper.toUserResponse(userRepository.save(user));
+        return UserResponse.fromUser(userRepository.save(user));
     }
 
     public void deleteUser(String userId){
