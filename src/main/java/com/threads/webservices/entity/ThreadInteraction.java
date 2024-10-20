@@ -27,6 +27,6 @@ public class ThreadInteraction {
     @Column(name = "repost", nullable = false)
     boolean repost;
 
-    @Column(name = "is_liked", nullable = false)
-    boolean isLiked;
+    @Column(name = "liked", nullable = false)
+    boolean liked;
 }

@@ -30,7 +30,7 @@ public class Thread {
     @Column(name = "like_count", nullable = false)
     int likeCount;
 
-    @Column(name = "repost_count", nullable = false)
+    @Column(name = "repost_count", nullable = false, columnDefinition = "INT DEFAULT 0")
     int repostCount;
 
     @Column(name = "create_at", nullable = false)
@@ -43,11 +43,12 @@ public class Thread {
     String imageUrl;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<Comment> comments;
-
-    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<ThreadInteraction> interactions;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<SocialFile> socialFiles;
+
+    @ManyToOne()
+    @JoinColumn(name = "previous_thread_id")
+    Thread previousThread;
 }
