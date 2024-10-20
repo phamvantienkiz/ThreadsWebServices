@@ -52,6 +52,7 @@ public class ThreadService {
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         List<Thread> threads = threadRepository.findByUserId(user.getId());
+
         return threads.stream().map(threadMapper::toThreadResponse).toList();
     }
 

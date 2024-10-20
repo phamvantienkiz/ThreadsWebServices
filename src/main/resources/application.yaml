@@ -4,11 +4,15 @@ server:
     context-path: /api
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
   datasource:
-    url: "jdbc:mysql://localhost:3306/threads_web_services"
+    url: "jdbc:mysql://localhost:3306/threads_web_services?createDatabaseIfNotExist=true"
     driverClassName: "com.mysql.cj.jdbc.Driver"
     username: root
-    password:
+    password: 123456
   jpa:
     hibernate:
       ddl-auto: update
