@@ -5,10 +5,10 @@ server:
 
 spring:
   datasource:
-    url: "jdbc:mysql://localhost:3306/threads_web_services"
+    url: "jdbc:mysql://localhost:3306/threads_web_services?createDatabaseIfNotExist=true"
     driverClassName: "com.mysql.cj.jdbc.Driver"
     username: root
-    password:
+    password: 123456
   jpa:
     hibernate:
       ddl-auto: update
