@@ -47,4 +47,7 @@ public class Thread {
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<ThreadInteraction> interactions;
+
+    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<SocialFile> socialFiles;
 }

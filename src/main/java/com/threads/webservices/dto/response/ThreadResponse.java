@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -11,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ThreadResponse {
     String id;
+
     String content;
 
     @JsonProperty("like_count")
@@ -18,6 +22,14 @@ public class ThreadResponse {
 
     @JsonProperty("repost_count")
     int repostCount;
-    String imageUrl;
-    String userId;
+
+    @JsonProperty("create_at")
+    LocalDateTime createAt;
+
+    @JsonProperty("user")
+    UserResponse userResponse;
+
+    @JsonProperty("social_files")
+    List<SocialFileResponse> socialFileResponses;
+
 }
