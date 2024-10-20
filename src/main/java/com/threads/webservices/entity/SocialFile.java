@@ -18,6 +18,7 @@ public class SocialFile {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Enumerated(EnumType.STRING)
     private SocialType type;
 
     private String url;

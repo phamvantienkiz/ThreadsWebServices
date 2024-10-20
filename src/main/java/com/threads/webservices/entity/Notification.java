@@ -23,10 +23,6 @@ public class Notification {
     User user;
 
     @ManyToOne
-    @JoinColumn(name = "comment_id")
-    Comment comment;
-
-    @ManyToOne
     @JoinColumn(name = "thread_id")
     Thread thread;
 
