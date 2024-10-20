@@ -40,7 +40,7 @@ public class ThreadService {
         thread.setUser(user);
         thread.setCreateAt(LocalDateTime.now());
 
-        return threadMapper.toThreadResponse(threadRepository.save(thread));
+        return ThreadResponse.fromThread(threadRepository.save(thread));
     }
 
     public List<ThreadResponse> getThreadsByUser(){
@@ -53,7 +53,7 @@ public class ThreadService {
 
         List<Thread> threads = threadRepository.findByUserId(user.getId());
 
-        return threads.stream().map(threadMapper::toThreadResponse).toList();
+        return threads.stream().map(ThreadResponse::fromThread).toList();
     }
 
     public ThreadResponse updateThread(String threadId, ThreadUpdateRequest request){
@@ -81,7 +81,7 @@ public class ThreadService {
 
         thread.setUpdateAt(LocalDateTime.now());
 
-        return threadMapper.toThreadResponse(threadRepository.save(thread));
+        return ThreadResponse.fromThread(threadRepository.save(thread));
     }
 
     public void deleteThread(String threadId){

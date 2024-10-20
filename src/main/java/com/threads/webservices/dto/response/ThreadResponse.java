@@ -1,6 +1,7 @@
 package com.threads.webservices.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.threads.webservices.entity.Thread;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -32,4 +33,15 @@ public class ThreadResponse {
     @JsonProperty("social_files")
     List<SocialFileResponse> socialFileResponses;
 
+    public static ThreadResponse fromThread (Thread thread) {
+        return ThreadResponse.builder()
+               .id(thread.getId())
+               .content(thread.getContent())
+               .likeCount(thread.getLikeCount())
+               .repostCount(thread.getRepostCount())
+               .createAt(thread.getCreateAt())
+               .userResponse(UserResponse.fromUser(thread.getUser()))
+               .socialFileResponses(thread.getSocialFiles().stream().map(SocialFileResponse::fromSocialFiles).toList())
+               .build();
+    }
 }

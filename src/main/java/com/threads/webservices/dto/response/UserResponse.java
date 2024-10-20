@@ -1,6 +1,7 @@
 package com.threads.webservices.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.threads.webservices.entity.User;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,10 +17,21 @@ import java.util.Set;
 public class UserResponse {
     String id;
     String username;
-    @JsonProperty("full_name")
-    String fullName;
+    @JsonProperty("name")
+    String name;
     LocalDate dob;
-    @JsonProperty("img_url")
-    String imgUrl;
+    @JsonProperty("image_url")
+    String imageUrl;
     Set<String> roles;
+
+    public static UserResponse fromUser(User user) {
+        return UserResponse.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .name(user.getName())
+                .dob(user.getDob())
+                .imageUrl(user.getImageUrl())
+                .roles(user.getRoles())
+                .build();
+    }
 }
