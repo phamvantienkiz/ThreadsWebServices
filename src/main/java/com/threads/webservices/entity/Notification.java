@@ -29,6 +29,8 @@ public class Notification {
     @Column(name = "content", length = 200)
     String content;
 
+    private String type; // like, repost, comment
+
     @Column(name = "create_at", nullable = false)
     LocalDateTime createAt;
 
