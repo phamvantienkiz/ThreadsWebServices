@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/comments")
 @RequiredArgsConstructor
 public class CommentController {
-    private CommentService commentService;
+    private final CommentService commentService;
 
     @PostMapping
     public ApiResponse<ThreadResponse> createComment(@RequestBody ThreadCreationRequest request){
