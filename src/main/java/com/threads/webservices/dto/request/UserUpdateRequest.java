@@ -1,5 +1,6 @@
 package com.threads.webservices.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,7 +15,10 @@ import java.time.LocalDate;
 public class UserUpdateRequest {
     @Size(min = 8, message = "INVALID_PASSWORD")
     String password;
-    String fullName;
+    String biography;
+    String name;
+    String nickname;
     LocalDate dob;
+    @JsonProperty("image_url")
     String imgUrl;
 }

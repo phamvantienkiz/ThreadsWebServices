@@ -45,6 +45,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.PUT, "/**")
                         .permitAll()
+                        .requestMatchers("/ws/**")
+                        .permitAll()
                         .anyRequest().authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2 ->
