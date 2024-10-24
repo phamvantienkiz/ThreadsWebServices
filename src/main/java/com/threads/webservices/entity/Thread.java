@@ -1,9 +1,12 @@
 package com.threads.webservices.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -14,20 +17,20 @@ import java.util.Set;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "threads")
-public class Thread {
+public class Thread implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     String id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 
     @Column(name = "content", nullable = false, length = 1000)
     String content;
 
-    @Column(name = "like_count", nullable = false)
+    @Column(name = "like_count", nullable = false, columnDefinition = "INT DEFAULT 0")
     int likeCount;
 
     @Column(name = "repost_count", nullable = false, columnDefinition = "INT DEFAULT 0")
@@ -48,7 +51,9 @@ public class Thread {
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<SocialFile> socialFiles;
 
-    @ManyToOne()
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "previous_thread_id")
     Thread previousThread;
+
+
 }

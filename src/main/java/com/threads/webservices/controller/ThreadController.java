@@ -47,4 +47,15 @@ public class ThreadController {
                 .result("Thread has been deleted!")
                 .build();
     }
+
+    @PostMapping("/repost")
+    public ApiResponse<?> repost(
+            @RequestParam("thread_id") String threadId,
+            @RequestParam("user_id") String userId
+    ) {
+        threadService.repost(threadId, userId);
+        return ApiResponse.<String>builder()
+                .result("Thread has been reposted!")
+                .build();
+    }
 }

@@ -12,14 +12,13 @@ import java.time.LocalDate;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserCreationRequest {
+
     @Size(min = 3, message = "USERNAME_INVALID")
     String username;
 
     @Size(min = 8, message = "INVALID_PASSWORD")
     String password;
-    String fullName;
-    LocalDate dob;
-    String imgUrl;
 
+    String name;
 
 }
