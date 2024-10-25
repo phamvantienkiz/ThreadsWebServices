@@ -19,6 +19,9 @@ import com.threads.webservices.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -39,6 +42,10 @@ public class ThreadService {
     NotificationService notificationService;
     ThreadMapper threadMapper;
 
+
+    public Page<Thread> findThreads(Pageable pageable){
+        return threadRepository.findAll(pageable);
+    }
 
     public ThreadResponse createThread(ThreadCreationRequest request){
         var context = SecurityContextHolder.getContext();
@@ -176,4 +183,6 @@ public class ThreadService {
                         .build()
         );
     }
+
+
 }
