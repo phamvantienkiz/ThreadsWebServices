@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 
@@ -38,7 +39,13 @@ public class UserService {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
 
-        User user = userMapper.toUser(request);
+        User user = User.builder()
+                .username(request.getUsername())
+                .name(request.getName())
+                .nickname(request.getUsername())
+                .dob(LocalDate.now().minusYears(18))
+                .build();
+
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         HashSet<String> roles = new HashSet<>();

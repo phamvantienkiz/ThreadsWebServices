@@ -22,6 +22,8 @@ public class UserResponse {
     LocalDate dob;
     @JsonProperty("image_url")
     String imageUrl;
+    String nickname;
+    String biography;
     Set<String> roles;
 
     public static UserResponse fromUser(User user) {
@@ -32,6 +34,8 @@ public class UserResponse {
                 .dob(user.getDob())
                 .imageUrl(user.getImageUrl())
                 .roles(user.getRoles())
+                .nickname(user.getNickname())
+                .biography(user.getBiography())
                 .build();
     }
 }

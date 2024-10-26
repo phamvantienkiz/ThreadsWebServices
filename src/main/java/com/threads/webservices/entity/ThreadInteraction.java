@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
+
 @Entity
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @IdClass(ThreadInteractionId.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "thread_interactions")
-public class ThreadInteraction {
+public class ThreadInteraction implements Serializable {
 
     @Id
     @ManyToOne
