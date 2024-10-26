@@ -74,7 +74,7 @@ public class ApplicationInitConfig {
                     .name("Margeaux Mar")
                     .username("mmar0")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/191x100.png/5fa2dd/ffffff")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Bitten by cat, sequela")
                     .nickname("Mar")
                     .build());
@@ -83,7 +83,7 @@ public class ApplicationInitConfig {
                     .name("Stacee Benoit")
                     .username("sbenoit1")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/185x100.png/dddddd/000000")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Unspecified fracture of unspecified toe(s), subsequent encounter for fracture with delayed healing")
                     .nickname("Benoit")
                     .build());
@@ -93,7 +93,7 @@ public class ApplicationInitConfig {
                     .name("Vinnie Rennocks")
                     .username("vrennocks2")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/126x100.png/ff4444/ffffff")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Unspecified obstruction of Eustachian tube, bilateral")
                     .nickname("Rennocks")
                     .build());
@@ -102,7 +102,7 @@ public class ApplicationInitConfig {
                     .name("Tootsie Straughan")
                     .username("tstraughan3")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/139x100.png/cc0000/ffffff")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Pathological fracture, right finger(s), subsequent encounter for fracture with delayed healing")
                     .nickname("Straughan")
                     .build());
@@ -111,7 +111,7 @@ public class ApplicationInitConfig {
                     .name("Juliann Reedie")
                     .username("jreedie4")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/137x100.png/dddddd/000000")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Nondisplaced oblique fracture of shaft of right tibia, subsequent encounter for closed fracture with malunion")
                     .nickname("Reedie")
                     .build());
@@ -120,7 +120,7 @@ public class ApplicationInitConfig {
                     .name("Aubrie Korba")
                     .username("akorba5")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/176x100.png/ff4444/ffffff")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Other injury due to other accident on board (nonpowered) inflatable craft")
                     .nickname("Korba")
                     .build());
@@ -129,7 +129,7 @@ public class ApplicationInitConfig {
                     .name("Skelly Watting")
                     .username("swatting6")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/210x100.png/cc0000/ffffff")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Complete traumatic amputation of two or more right lesser toes")
                     .nickname("Watting")
                     .build());
@@ -138,7 +138,7 @@ public class ApplicationInitConfig {
                     .name("Shela Shill")
                     .username("sshill7")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/193x100.png/ff4444/ffffff")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Other shellfish poisoning, undetermined, subsequent encounter")
                     .nickname("Shill")
                     .build());
@@ -147,7 +147,7 @@ public class ApplicationInitConfig {
                     .name("Eudora Canas")
                     .username("ecanas8")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/110x100.png/cc0000/ffffff")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Malignant neoplasm of unspecified part of right adrenal gland")
                     .nickname("Canas")
                     .build());
@@ -156,7 +156,7 @@ public class ApplicationInitConfig {
                     .name("Bernadina Densham")
                     .username("bdensham9")
                     .password("user")
-                    .imageUrl("http://dummyimage.com/245x100.png/ff4444/ffffff")
+                    .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                     .biography("Unspecified physeal fracture of phalanx of right toe, subsequent encounter for fracture with routine healing")
                     .nickname("Densham")
                     .build());

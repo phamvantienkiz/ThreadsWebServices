@@ -21,6 +21,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/search")
+    public void searchUsers(@RequestParam String keyword) {
+
+    }
+
     @PostMapping("/create-users")
     ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request){
         ApiResponse<User> apiResponse = new ApiResponse<>();

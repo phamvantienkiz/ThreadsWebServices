@@ -1,6 +1,8 @@
 package com.threads.webservices.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -16,6 +18,8 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.security.messaging.context.AuthenticationPrincipalArgumentResolver;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Configuration
@@ -42,9 +46,19 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
         DefaultContentTypeResolver resolver = new DefaultContentTypeResolver();
         resolver.setDefaultMimeType(MediaType.APPLICATION_JSON);
+
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setObjectMapper(new ObjectMapper());
+        ObjectMapper mapper = new ObjectMapper();
+
+        JavaTimeModule javaTimeModule=new JavaTimeModule();
+        // Hack time module to allow 'Z' at the end of string (i.e. javascript json's)
+        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ISO_DATE_TIME));
+
+        mapper.registerModule(javaTimeModule);
+
+        converter.setObjectMapper(mapper);
         converter.setContentTypeResolver(resolver);
+
         messageConverters.add(converter);
         return false;
     }

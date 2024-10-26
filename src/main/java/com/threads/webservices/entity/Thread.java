@@ -30,10 +30,10 @@ public class Thread implements Serializable {
     @Column(name = "content", nullable = false, length = 1000)
     String content;
 
-    @Column(name = "like_count", nullable = false, columnDefinition = "INT DEFAULT 0")
+    @Column(name = "like_count", columnDefinition = "INT DEFAULT 0")
     int likeCount;
 
-    @Column(name = "repost_count", nullable = false, columnDefinition = "INT DEFAULT 0")
+    @Column(name = "repost_count", columnDefinition = "INT DEFAULT 0")
     int repostCount;
 
     @Column(name = "create_at", nullable = false)

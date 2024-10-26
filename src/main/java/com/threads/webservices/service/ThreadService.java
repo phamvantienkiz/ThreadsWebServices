@@ -13,6 +13,7 @@ import com.threads.webservices.enums.NotificationType;
 import com.threads.webservices.exception.AppException;
 import com.threads.webservices.exception.ErrorCode;
 import com.threads.webservices.mapper.ThreadMapper;
+import com.threads.webservices.models.WSUserResponse;
 import com.threads.webservices.repository.ThreadInteractionRepository;
 import com.threads.webservices.repository.ThreadRepository;
 import com.threads.webservices.repository.UserRepository;
@@ -54,11 +55,35 @@ public class ThreadService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-        Thread thread = threadMapper.toThread(request);
-        thread.setUser(user);
-        thread.setCreateAt(LocalDateTime.now());
+        Thread thread = Thread.builder()
+                .user(user)
+                .content(request.getContent())
+                .createAt(LocalDateTime.now())
+                .build();
 
-        return ThreadResponse.fromThread(threadRepository.save(thread));
+        if(!request.getPreviousThreadId().isEmpty()) {
+            Thread previousThread = threadRepository.findById(request.getPreviousThreadId()).orElseThrow(
+                    () -> new AppException(ErrorCode.THREAD_NOT_EXISTED)
+            );
+
+            thread.setPreviousThread(previousThread);
+
+            notificationService.sendToMessage(previousThread.getUser().getId(),
+                    NotificationWS.builder()
+                            .content(String.format("%s đã trả lời thread của bạn !", user.getNickname()))
+                            .type(NotificationType.COMMENT)
+                            .threadId(previousThread.getId())
+                            .userResponse(
+                                    WSUserResponse.builder()
+                                            .userId(previousThread.getUser().getId())
+                                            .nickname(user.getNickname())
+                                            .build()
+                            )
+                            .build()
+            );
+        }
+        Thread threadSaved = threadRepository.save(thread);
+        return ThreadResponse.fromThread(threadSaved);
     }
 
     public List<ThreadResponse> getThreadsByUser(){
@@ -153,6 +178,10 @@ public class ThreadService {
                     NotificationWS.builder()
                             .content(content)
                             .type(NotificationType.REPOST)
+                            .userResponse(
+                                    com.threads.webservices.models.WSUserResponse.builder()
+                                            .build()
+                            )
                             .build()
             );
         } else {

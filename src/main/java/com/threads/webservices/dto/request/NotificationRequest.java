@@ -1,5 +1,6 @@
 package com.threads.webservices.dto.request;
 
+import com.threads.webservices.enums.NotificationType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -12,4 +13,5 @@ public class NotificationRequest {
     String userId;
     String threadId;
     String content;
+    NotificationType type;
 }

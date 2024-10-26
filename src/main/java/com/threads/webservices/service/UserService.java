@@ -34,6 +34,8 @@ public class UserService {
     private UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
+    public List<UserResponse>
+
     public User createRequest(UserCreationRequest request){
 
         if (userRepository.existsByUsername(request.getUsername())){
