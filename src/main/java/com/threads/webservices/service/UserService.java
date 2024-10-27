@@ -2,6 +2,7 @@ package com.threads.webservices.service;
 
 import com.threads.webservices.dto.request.UserCreationRequest;
 import com.threads.webservices.dto.request.UserUpdateRequest;
+import com.threads.webservices.dto.response.SearchUserResponse;
 import com.threads.webservices.dto.response.UserResponse;
 import com.threads.webservices.entity.User;
 import com.threads.webservices.enums.Role;
@@ -34,7 +35,14 @@ public class UserService {
     private UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
-    public List<UserResponse>
+    public List<SearchUserResponse> searchUsers(String keyword){
+
+        var context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+
+        List<User> users = userRepository.findByKeyword(username, keyword);
+        return users.stream().map(SearchUserResponse::fromUser).toList();
+    }
 
     public User createRequest(UserCreationRequest request){
 

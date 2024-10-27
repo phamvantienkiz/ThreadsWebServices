@@ -47,6 +47,7 @@ public class ApplicationInitConfig {
                 User user = User.builder()
                         .username("admin")
                         .password(passwordEncoder.encode("admin"))
+                        .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                         .roles(roles)
                         .build();
 
@@ -60,7 +61,8 @@ public class ApplicationInitConfig {
 
                 User user = User.builder()
                         .username("user")
-                        .password(passwordEncoder.encode("admin"))
+                        .password(passwordEncoder.encode("user"))
+                        .imageUrl("f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg")
                         .roles(roles)
                         .build();
 

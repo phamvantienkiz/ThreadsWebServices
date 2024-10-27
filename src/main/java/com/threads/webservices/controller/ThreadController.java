@@ -37,6 +37,20 @@ public class ThreadController {
                 .build();
     }
 
+    @GetMapping("/reply_threads/{userId}")
+    public ApiResponse<List<ThreadResponse>> getReplyThreads(@PathVariable String userId){
+        return ApiResponse.<List<ThreadResponse>>builder()
+                .result(threadService.replyThreads(userId))
+                .build();
+    }
+
+    @GetMapping("/repost_threads/{userId}")
+    public ApiResponse<List<ThreadResponse>> getRepostThreads(@PathVariable String userId){
+        return ApiResponse.<List<ThreadResponse>>builder()
+                .result(threadService.repostThreads(userId))
+                .build();
+    }
+
     @PutMapping("/{threadId}")
     public ApiResponse<ThreadResponse> updateThread(@PathVariable String threadId, @RequestBody ThreadUpdateRequest request){
         return ApiResponse.<ThreadResponse>builder()

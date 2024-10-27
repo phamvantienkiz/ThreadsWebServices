@@ -43,6 +43,18 @@ public class ThreadService {
     NotificationService notificationService;
     ThreadMapper threadMapper;
 
+    public List<ThreadResponse> replyThreads(String userId){
+        List<Thread> threads = threadRepository.findByPreviousThread(userId);
+        return threads.stream().map(ThreadResponse::fromThread).toList();
+    }
+
+    public List<ThreadResponse> repostThreads(String userId){
+        List<ThreadInteraction> threadInteractions = threadInteractionRepository.findByUserId(userId);
+        List<Thread> threads = threadInteractions.stream().filter(ThreadInteraction::isRepost).map(ThreadInteraction::getThread).toList();
+
+        return threads.stream().map(ThreadResponse::fromThread).toList();
+    }
+
 
     public Page<Thread> findThreads(Pageable pageable){
         return threadRepository.findAll(pageable);

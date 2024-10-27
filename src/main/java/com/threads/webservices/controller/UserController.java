@@ -3,6 +3,7 @@ package com.threads.webservices.controller;
 import com.threads.webservices.dto.request.ApiResponse;
 import com.threads.webservices.dto.request.UserCreationRequest;
 import com.threads.webservices.dto.request.UserUpdateRequest;
+import com.threads.webservices.dto.response.SearchUserResponse;
 import com.threads.webservices.dto.response.UserResponse;
 import com.threads.webservices.entity.User;
 import com.threads.webservices.service.UserService;
@@ -22,8 +23,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/search")
-    public void searchUsers(@RequestParam String keyword) {
-
+    public ApiResponse<List<SearchUserResponse>> searchUsers(@RequestParam String keyword) {
+        return ApiResponse.<List<SearchUserResponse>>builder()
+                .result(userService.searchUsers(keyword))
+                .build();
     }
 
     @PostMapping("/create-users")

@@ -45,8 +45,11 @@ public class SecurityConfig {
     @Value("${spring.datasource.password}")
     private String datasourcePassword;
 
+    @Value("${client.host}")
+    private String[] clientHosts;
+
     private final String[] PUBLIC_ENDPOINTS = {"/users/create-users", "/auth/token", "/auth/introspect"};
-    private final String[] GET_PUBLIC_ENDPOINTS = {"/threads/page**", "/social_files/IMAGE/**" , "/social_files/VIDEO/**"};
+    private final String[] GET_PUBLIC_ENDPOINTS = {"/threads/reply_threads/**", "/threads/page**", "/social_files/IMAGE/**" , "/social_files/VIDEO/**", "/threads/repost_threads/**"};
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
@@ -80,7 +83,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList(clientHosts));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
