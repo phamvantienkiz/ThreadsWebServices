@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, String> {
     List<Notification> findByUserIdAndIsReadFalse(String userId); //Lay thong tin tb chua doc
+    List<Notification> findAllByUserId(String userId); //Lay thong tin tb cua user do
 }

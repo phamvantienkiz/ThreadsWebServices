@@ -1,5 +1,6 @@
 package com.threads.webservices.entity;
 
+import com.threads.webservices.enums.NotificationType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -35,4 +36,8 @@ public class Notification implements Serializable {
 
     @Column(name = "is_read")
     boolean isRead;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    NotificationType type;
 }

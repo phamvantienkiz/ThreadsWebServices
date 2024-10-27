@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,11 +25,13 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.sql.DataSource;
 import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@Order(Ordered.HIGHEST_PRECEDENCE + 98)
 public class SecurityConfig {
 
     @Autowired
@@ -35,8 +40,21 @@ public class SecurityConfig {
     @Value("${jwt.signerKey}")
     protected String signerKey;
 
-    private final String[] PUBLIC_ENDPOINTS = {"/users/create-users", "/auth/token", "/auth/introspect",
-            "/auth/logout", "/auth/refresh"};
+    @Value("${spring.datasource.url}")
+    private String datasourceUrl;
+
+    @Value("${spring.datasource.username}")
+    private String datasourceUsername;
+
+    @Value("${spring.datasource.password}")
+    private String datasourcePassword;
+
+    @Value("${client.host}")
+    private String[] clientHosts;
+
+    private final String[] PUBLIC_ENDPOINTS = {"/users/create-users", "/auth/token", "/auth/introspect"};
+    private final String[] GET_PUBLIC_ENDPOINTS = {"/threads/reply_threads/**", "/threads/page**", "/social_files/IMAGE/**" , "/social_files/VIDEO/**", "/threads/repost_threads/**"};
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
@@ -44,7 +62,7 @@ public class SecurityConfig {
                 request
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS)
                         .permitAll()
-                        .requestMatchers(HttpMethod.GET, "/**")
+                        .requestMatchers(HttpMethod.GET, GET_PUBLIC_ENDPOINTS)
                         .permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/**")
                         .permitAll()
@@ -70,7 +88,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList(clientHosts));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
@@ -92,6 +110,16 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
     }
+
+    @Bean
+    public DataSource datasource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl(datasourceUrl);
+        dataSource.setUsername(datasourceUsername);
+        dataSource.setPassword(datasourcePassword);
+        return dataSource;
+    }
+
 }
 
 /*

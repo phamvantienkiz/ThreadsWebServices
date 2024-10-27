@@ -17,8 +17,23 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  #flyway
+  # Đường dẫn tới thư mục chứa các script Flyway
+  flyway:
+    locations: classpath:/db/migration, classpath:/dev/db/migration
+    #Phiên bản baseline sẽ = 1 và không thực hiện bất kỳ thay đổi nào trong DB
+    baseline-on-migrate: true
+    baseline-version: 0
+    enabled: false
+
 
 jwt:
   signerKey: "gI9y2dncxGq6Tb8LCAGsIX5Ngs9RxN9qeRGHTapgvf52RKiEtWrBCfRkGWB350it"
-  valid-duration: 36000 # in second - 10 hours
-  refreshable-duration: 360000 # in seconds - 100 hours
+
+
+client:
+  host: http://localhost:4200, https://a5c6-14-161-44-125.ngrok-free.app
+
+ valid-duration: 36000 # in second - 10 hours
+ refreshable-duration: 360000 # in seconds - 100 hours
+
