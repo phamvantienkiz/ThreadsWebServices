@@ -13,12 +13,16 @@ import com.threads.webservices.enums.NotificationType;
 import com.threads.webservices.exception.AppException;
 import com.threads.webservices.exception.ErrorCode;
 import com.threads.webservices.mapper.ThreadMapper;
+import com.threads.webservices.models.WSUserResponse;
 import com.threads.webservices.repository.ThreadInteractionRepository;
 import com.threads.webservices.repository.ThreadRepository;
 import com.threads.webservices.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -39,6 +43,22 @@ public class ThreadService {
     NotificationService notificationService;
     ThreadMapper threadMapper;
 
+    public List<ThreadResponse> replyThreads(String userId){
+        List<Thread> threads = threadRepository.findByPreviousThread(userId);
+        return threads.stream().map(ThreadResponse::fromThread).toList();
+    }
+
+    public List<ThreadResponse> repostThreads(String userId){
+        List<ThreadInteraction> threadInteractions = threadInteractionRepository.findByUserId(userId);
+        List<Thread> threads = threadInteractions.stream().filter(ThreadInteraction::isRepost).map(ThreadInteraction::getThread).toList();
+
+        return threads.stream().map(ThreadResponse::fromThread).toList();
+    }
+
+
+    public Page<Thread> findThreads(Pageable pageable){
+        return threadRepository.findAll(pageable);
+    }
 
     public ThreadResponse createThread(ThreadCreationRequest request){
         var context = SecurityContextHolder.getContext();
@@ -47,11 +67,35 @@ public class ThreadService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-        Thread thread = threadMapper.toThread(request);
-        thread.setUser(user);
-        thread.setCreateAt(LocalDateTime.now());
+        Thread thread = Thread.builder()
+                .user(user)
+                .content(request.getContent())
+                .createAt(LocalDateTime.now())
+                .build();
 
-        return ThreadResponse.fromThread(threadRepository.save(thread));
+        if(!request.getPreviousThreadId().isEmpty()) {
+            Thread previousThread = threadRepository.findById(request.getPreviousThreadId()).orElseThrow(
+                    () -> new AppException(ErrorCode.THREAD_NOT_EXISTED)
+            );
+
+            thread.setPreviousThread(previousThread);
+
+            notificationService.sendToMessage(previousThread.getUser().getId(),
+                    NotificationWS.builder()
+                            .content(String.format("%s đã trả lời thread của bạn !", user.getNickname()))
+                            .type(NotificationType.COMMENT)
+                            .threadId(previousThread.getId())
+                            .userResponse(
+                                    WSUserResponse.builder()
+                                            .userId(previousThread.getUser().getId())
+                                            .nickname(user.getNickname())
+                                            .build()
+                            )
+                            .build()
+            );
+        }
+        Thread threadSaved = threadRepository.save(thread);
+        return ThreadResponse.fromThread(threadSaved);
     }
 
     public List<ThreadResponse> getThreadsByUser(){
@@ -67,33 +111,33 @@ public class ThreadService {
         return threads.stream().map(ThreadResponse::fromThread).toList();
     }
 
-    public ThreadResponse updateThread(String threadId, ThreadUpdateRequest request){
-        var context = SecurityContextHolder.getContext();
-        String username = context.getAuthentication().getName();
-
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
-
-        Thread thread = threadRepository.findById(threadId)
-                        .orElseThrow(() -> new AppException(ErrorCode.THREAD_NOT_EXISTED));
-
-        if (!thread.getUser().getId().equals(user.getId())){
-            throw new AppException(ErrorCode.THREAD_NOT_ALLOWED);
-        }
-
-        thread.setContent(request.getContent());
-
-        // Cập nhật imageUrl nếu có
-        if (request.getImageUrl() != null && !request.getImageUrl().isEmpty()) {
-            thread.setImageUrl(request.getImageUrl());
-        } else {
-            thread.setImageUrl(null);  // Xóa ảnh nếu không có
-        }
-
-        thread.setUpdateAt(LocalDateTime.now());
-
-        return ThreadResponse.fromThread(threadRepository.save(thread));
-    }
+//    public ThreadResponse updateThread(String threadId, ThreadUpdateRequest request){
+//        var context = SecurityContextHolder.getContext();
+//        String username = context.getAuthentication().getName();
+//
+//        User user = userRepository.findByUsername(username)
+//                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+//
+//        Thread thread = threadRepository.findById(threadId)
+//                        .orElseThrow(() -> new AppException(ErrorCode.THREAD_NOT_EXISTED));
+//
+//        if (!thread.getUser().getId().equals(user.getId())){
+//            throw new AppException(ErrorCode.THREAD_NOT_ALLOWED);
+//        }
+//
+//        thread.setContent(request.getContent());
+//
+//        // Cập nhật imageUrl nếu có
+//        if (request.getImageUrl() != null && !request.getImageUrl().isEmpty()) {
+//            thread.setImageUrl(request.getImageUrl());
+//        } else {
+//            thread.setImageUrl(null);  // Xóa ảnh nếu không có
+//        }
+//
+//        thread.setUpdateAt(LocalDateTime.now());
+//
+//        return ThreadResponse.fromThread(threadRepository.save(thread));
+//    }
 
     public void deleteThread(String threadId){
         var context = SecurityContextHolder.getContext();
@@ -146,6 +190,10 @@ public class ThreadService {
                     NotificationWS.builder()
                             .content(content)
                             .type(NotificationType.REPOST)
+                            .userResponse(
+                                    com.threads.webservices.models.WSUserResponse.builder()
+                                            .build()
+                            )
                             .build()
             );
         } else {
@@ -176,4 +224,6 @@ public class ThreadService {
                         .build()
         );
     }
+
+
 }

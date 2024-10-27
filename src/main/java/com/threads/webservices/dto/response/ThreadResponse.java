@@ -41,7 +41,7 @@ public class ThreadResponse {
                .repostCount(thread.getRepostCount())
                .createAt(thread.getCreateAt())
                .userResponse(UserResponse.fromUser(thread.getUser()))
-               .socialFileResponses(thread.getSocialFiles().stream().map(SocialFileResponse::fromSocialFiles).toList())
+               .socialFileResponses(thread.getSocialFiles() == null ? null :  thread.getSocialFiles().stream().map(SocialFileResponse::fromSocialFiles).toList())
                .build();
     }
 }
