@@ -1,5 +1,6 @@
 package com.threads.webservices.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,5 +21,13 @@ public class UserCreationRequest {
     String password;
 
     String name;
+
+    @JsonProperty("image_url")
+    String imageUrl;
+
+    @JsonProperty("nickname")
+    String nickname;
+
+    String biography;
 
 }

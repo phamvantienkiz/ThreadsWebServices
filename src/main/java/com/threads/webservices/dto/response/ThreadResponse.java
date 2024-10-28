@@ -33,7 +33,11 @@ public class ThreadResponse {
     @JsonProperty("social_files")
     List<SocialFileResponse> socialFileResponses;
 
+    @JsonProperty("interactions")
+    List<ThreadInteractionResponse> interactions;
+
     public static ThreadResponse fromThread (Thread thread) {
+
         return ThreadResponse.builder()
                .id(thread.getId())
                .content(thread.getContent())
@@ -41,7 +45,8 @@ public class ThreadResponse {
                .repostCount(thread.getRepostCount())
                .createAt(thread.getCreateAt())
                .userResponse(UserResponse.fromUser(thread.getUser()))
-               .socialFileResponses(thread.getSocialFiles().stream().map(SocialFileResponse::fromSocialFiles).toList())
-               .build();
+               .socialFileResponses(thread.getSocialFiles() == null ? null :  thread.getSocialFiles().stream().map(SocialFileResponse::fromSocialFiles).toList())
+                .interactions(thread.getInteractions() == null ? null : thread.getInteractions().stream().map(ThreadInteractionResponse::froThreadInteraction).toList())
+                .build();
     }
 }

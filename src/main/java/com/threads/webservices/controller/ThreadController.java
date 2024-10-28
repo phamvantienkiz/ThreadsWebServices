@@ -3,11 +3,15 @@ package com.threads.webservices.controller;
 import com.threads.webservices.dto.request.ApiResponse;
 import com.threads.webservices.dto.request.ThreadCreationRequest;
 import com.threads.webservices.dto.request.ThreadUpdateRequest;
+import com.threads.webservices.dto.response.ThreadListResponse;
 import com.threads.webservices.dto.response.ThreadResponse;
 import com.threads.webservices.entity.Thread;
 import com.threads.webservices.service.ThreadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +30,49 @@ public class ThreadController {
                 .build();
     }
 
+    @PostMapping("/like/{id}")
+    public ApiResponse<ThreadResponse> like(@PathVariable("id") String threadId){
+        return ApiResponse.<ThreadResponse>builder()
+                .result(threadService.likeThread(threadId))
+                .build();
+    }
+
     @GetMapping
     public ApiResponse<List<ThreadResponse>> getUserThreads(){
         return ApiResponse.<List<ThreadResponse>>builder()
                 .result(threadService.getThreadsByUser())
+                .build();
+    }
+
+    @GetMapping("/previous_threads/{id}")
+    public ApiResponse<List<ThreadResponse>> getThreadById(
+            @PathVariable("id") String threadId
+    ){
+        return ApiResponse.<List<ThreadResponse>>builder()
+                .result(threadService.findPreviousThreads(threadId))
+                .build();
+    }
+
+    @GetMapping("/users/{userId}")
+    public ApiResponse<List<ThreadResponse>> getUserThreadsByUserId(
+            @PathVariable String userId
+    ){
+        return ApiResponse.<List<ThreadResponse>>builder()
+                .result(threadService.getThreadsByUserId(userId))
+                .build();
+    }
+
+    @GetMapping("/reply_threads/{userId}")
+    public ApiResponse<List<ThreadResponse>> getReplyThreads(@PathVariable String userId){
+        return ApiResponse.<List<ThreadResponse>>builder()
+                .result(threadService.replyThreads(userId))
+                .build();
+    }
+
+    @GetMapping("/repost_threads/{userId}")
+    public ApiResponse<List<ThreadResponse>> getRepostThreads(@PathVariable String userId){
+        return ApiResponse.<List<ThreadResponse>>builder()
+                .result(threadService.repostThreads(userId))
                 .build();
     }
 
@@ -58,4 +101,27 @@ public class ThreadController {
                 .result("Thread has been reposted!")
                 .build();
     }
+
+    @GetMapping("/page")
+    public ApiResponse<?> getAllThreads(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int limit
+    ){
+        PageRequest pageRequest = PageRequest.of(
+            page, limit, Sort.by("id").ascending() //Sắp xếp theo ngày tạo giảm dần
+        );
+
+        Page<Thread> threadsPage = threadService.findThreads(pageRequest);
+        Page<ThreadResponse> threadResponsePage = threadsPage.map(ThreadResponse::fromThread);
+
+        ThreadListResponse threadListResponse = ThreadListResponse.builder()
+                .totalPages(threadResponsePage.getTotalPages())
+                .threads(threadResponsePage.getContent())
+                .build();
+
+        return ApiResponse.builder()
+                .result(threadListResponse)
+                .build();
+    }
+
 }
