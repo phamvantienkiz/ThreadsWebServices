@@ -127,16 +127,16 @@ insert into notifications (id, user_id, thread_id, content, create_at, is_read) 
 insert into notifications (id, user_id, thread_id, content, create_at, is_read) values ('b94d8b5f-860b-4b79-b95b-2f36abf0bb43', '${initial_user_id10}', 'cfef6cc4-bffc-4661-8f6e-b726918f4086', 'Other fall on same level due to collision with another person, subsequent encounter', '2023-10-27', false);
 insert into notifications (id, user_id, thread_id, content, create_at, is_read) values ('b6f23a3a-cb4f-4f64-a5e6-42a33cdf4710', '${initial_user_id9}', '372b9f46-2703-4c4a-9f73-bc7d905936b5', 'Asymptomatic premature menopause', '2023-10-28', true);
 
-insert into social_files (id, thread_id, type, url) values ('40766b15-bcfd-448d-8678-58b5e6969c25', 'de352615-9d96-4ed6-a667-33f356119eab', 'IMAGE', 'http://dummyimage.com/156x100.png/cc0000/ffffff');
-insert into social_files (id, thread_id, type, url) values ('d72e1b26-df8b-4ef0-9b8a-3a09f70b277d', '444ef0a4-619c-4359-a130-115c6df27e29', 'VIDEO', 'http://dummyimage.com/224x100.png/cc0000/ffffff');
-insert into social_files (id, thread_id, type, url) values ('618f9650-34e7-4297-88bb-7d9a7c0df6a4', 'd92248b8-6375-49ad-afd4-f11352015bd1', 'IMAGE', 'http://dummyimage.com/188x100.png/5fa2dd/ffffff');
-insert into social_files (id, thread_id, type, url) values ('34ff1f8c-c70f-4b49-bbd9-d00dee5c6b18', '79c889a7-447e-4e2a-9e6a-3e275cdae530', 'VIDEO', 'http://dummyimage.com/220x100.png/cc0000/ffffff');
-insert into social_files (id, thread_id, type, url) values ('3fdbc0d3-df08-4264-b254-b61f22bad97d', 'e0f6d696-b588-4ba1-98fa-4d62844490fe', 'VIDEO', 'http://dummyimage.com/238x100.png/5fa2dd/ffffff');
-insert into social_files (id, thread_id, type, url) values ('c744dc78-8eff-457a-ace6-a3ac43d1fd3f', 'b8d7cae1-b7e6-4d63-bb7b-527cc9ec9670', 'VIDEO', 'http://dummyimage.com/193x100.png/5fa2dd/ffffff');
-insert into social_files (id, thread_id, type, url) values ('79a5919c-728d-4cd3-8eca-3f496eef489b', 'b7e4d8ea-050c-4789-aa3d-b69dda5e2655', 'VIDEO', 'http://dummyimage.com/151x100.png/dddddd/000000');
-insert into social_files (id, thread_id, type, url) values ('428ba910-9a73-4bd5-80f9-75e524086702', 'eeeae9b6-e421-4e52-821b-afee448429df', 'IMAGE', 'http://dummyimage.com/107x100.png/ff4444/ffffff');
-insert into social_files (id, thread_id, type, url) values ('4e437113-a325-460b-a26d-b16eb804775d', 'f1d1dd3b-f828-4a41-8b66-4003669920ee', 'IMAGE', 'http://dummyimage.com/244x100.png/cc0000/ffffff');
-insert into social_files (id, thread_id, type, url) values ('43916ffe-444b-467a-8ad8-5e396216a7b6', '1296b326-5613-41f5-9d02-8a5f8a1fd7bb', 'IMAGE', 'http://dummyimage.com/229x100.png/ff4444/ffffff');
-insert into social_files (id, thread_id, type, url) values ('53da4b7b-7f99-4b1d-b99d-c9eca44a0dea', 'cfef6cc4-bffc-4661-8f6e-b726918f4086', 'VIDEO', 'http://dummyimage.com/207x100.png/cc0000/ffffff');
-insert into social_files (id, thread_id, type, url) values ('fc52e548-ee80-42b1-8305-c2e21e181539', '372b9f46-2703-4c4a-9f73-bc7d905936b5', 'IMAGE', 'http://dummyimage.com/150x100.png/cc0000/ffffff');
+insert into social_files (id, thread_id, type, url) values ('40766b15-bcfd-448d-8678-58b5e6969c25', 'de352615-9d96-4ed6-a667-33f356119eab', 'IMAGE', 'f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg');
+insert into social_files (id, thread_id, type, url) values ('d72e1b26-df8b-4ef0-9b8a-3a09f70b277d', '444ef0a4-619c-4359-a130-115c6df27e29', 'VIDEO', 'e8d5ff00-cdc1-4474-bc2e-c2f4d75b7c6d_174043101460200.mp4');
+insert into social_files (id, thread_id, type, url) values ('618f9650-34e7-4297-88bb-7d9a7c0df6a4', 'd92248b8-6375-49ad-afd4-f11352015bd1', 'IMAGE', 'f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg');
+insert into social_files (id, thread_id, type, url) values ('34ff1f8c-c70f-4b49-bbd9-d00dee5c6b18', '79c889a7-447e-4e2a-9e6a-3e275cdae530', 'VIDEO', 'e8d5ff00-cdc1-4474-bc2e-c2f4d75b7c6d_174043101460200.mp4');
+insert into social_files (id, thread_id, type, url) values ('3fdbc0d3-df08-4264-b254-b61f22bad97d', 'e0f6d696-b588-4ba1-98fa-4d62844490fe', 'VIDEO', 'e8d5ff00-cdc1-4474-bc2e-c2f4d75b7c6d_174043101460200.mp4');
+insert into social_files (id, thread_id, type, url) values ('c744dc78-8eff-457a-ace6-a3ac43d1fd3f', 'b8d7cae1-b7e6-4d63-bb7b-527cc9ec9670', 'VIDEO', 'e8d5ff00-cdc1-4474-bc2e-c2f4d75b7c6d_174043101460200.mp4');
+insert into social_files (id, thread_id, type, url) values ('79a5919c-728d-4cd3-8eca-3f496eef489b', 'b7e4d8ea-050c-4789-aa3d-b69dda5e2655', 'VIDEO', 'e8d5ff00-cdc1-4474-bc2e-c2f4d75b7c6d_174043101460200.mp4');
+insert into social_files (id, thread_id, type, url) values ('428ba910-9a73-4bd5-80f9-75e524086702', 'eeeae9b6-e421-4e52-821b-afee448429df', 'IMAGE', 'f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg');
+insert into social_files (id, thread_id, type, url) values ('4e437113-a325-460b-a26d-b16eb804775d', 'f1d1dd3b-f828-4a41-8b66-4003669920ee', 'IMAGE', 'f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg');
+insert into social_files (id, thread_id, type, url) values ('43916ffe-444b-467a-8ad8-5e396216a7b6', '1296b326-5613-41f5-9d02-8a5f8a1fd7bb', 'IMAGE', 'f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg');
+insert into social_files (id, thread_id, type, url) values ('53da4b7b-7f99-4b1d-b99d-c9eca44a0dea', 'cfef6cc4-bffc-4661-8f6e-b726918f4086', 'VIDEO', 'e8d5ff00-cdc1-4474-bc2e-c2f4d75b7c6d_174043101460200.mp4');
+insert into social_files (id, thread_id, type, url) values ('fc52e548-ee80-42b1-8305-c2e21e181539', '372b9f46-2703-4c4a-9f73-bc7d905936b5', 'IMAGE', 'f2ecf790-ac64-4ec8-bc44-a03a701b8f3e_173996873185200.jpg');
 

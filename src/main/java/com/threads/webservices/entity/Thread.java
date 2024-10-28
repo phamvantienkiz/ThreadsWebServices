@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -46,10 +47,10 @@ public class Thread implements Serializable {
     String imageUrl;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<ThreadInteraction> interactions;
+    List<ThreadInteraction> interactions;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Set<SocialFile> socialFiles;
+    List<SocialFile> socialFiles;
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "previous_thread_id")

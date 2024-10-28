@@ -1,5 +1,7 @@
 package com.threads.webservices.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -46,7 +48,7 @@ public class User implements Serializable {
     Set<String> roles; //Set giong nhu list nhung set se dam bao k co gia tri trung lap trong list
     //Chu y vao lifecycle de clean lai khi update cac thuoc tinh co su dung mapstruct (bai 9 8:15)
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     Set<Thread> threads;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -54,7 +56,5 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<ThreadInteraction> threadInteractions;
-
-
 
 }

@@ -16,4 +16,8 @@ public interface ThreadRepository extends JpaRepository<Thread, String> {
             "where user_id = :userId " +
             "AND previous_thread_id IS NOT NULL", nativeQuery = true)
     List<Thread> findByPreviousThread(@Param("userId") String userId);
+
+    @Query(value = "SELECT * FROM threads " +
+            "where previous_thread_id = :previous_thread_id", nativeQuery = true)
+    List<Thread> findByPreviousThreadId(@Param("previous_thread_id") String previous_thread_id);
 }

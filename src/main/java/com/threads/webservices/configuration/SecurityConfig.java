@@ -49,8 +49,8 @@ public class SecurityConfig {
     @Value("${client.host}")
     private String[] clientHosts;
 
-    private final String[] PUBLIC_ENDPOINTS = {"/users/create-users", "/auth/token", "/auth/introspect"};
-    private final String[] GET_PUBLIC_ENDPOINTS = {"/threads/reply_threads/**", "/threads/page**", "/social_files/IMAGE/**" , "/social_files/VIDEO/**", "/threads/repost_threads/**"};
+    private final String[] PUBLIC_ENDPOINTS = {"/threads/like/**", "/users/create-users", "/auth/token", "/auth/introspect"};
+    private final String[] GET_PUBLIC_ENDPOINTS = {"/threads/previous_threads/**", "/users/get-user/**", "/threads/reply_threads/**", "/threads/page**", "/social_files/IMAGE/**" , "/social_files/VIDEO/**", "/threads/repost_threads/**"};
 
 
     @Bean

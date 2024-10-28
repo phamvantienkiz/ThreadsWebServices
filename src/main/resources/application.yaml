@@ -33,7 +33,7 @@ jwt:
   refreshable-duration: 360000 # in seconds - 100 hours
 
 client:
-  host: http://localhost:4200, https://a5c6-14-161-44-125.ngrok-free.app
+  host: http://localhost:4200, https://08c0-2401-d800-2b51-a3ec-7405-d787-a1b-4eb0.ngrok-free.app
 
 
 

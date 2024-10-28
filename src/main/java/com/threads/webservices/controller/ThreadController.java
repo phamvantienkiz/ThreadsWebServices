@@ -30,10 +30,35 @@ public class ThreadController {
                 .build();
     }
 
+    @PostMapping("/like/{id}")
+    public ApiResponse<ThreadResponse> like(@PathVariable("id") String threadId){
+        return ApiResponse.<ThreadResponse>builder()
+                .result(threadService.likeThread(threadId))
+                .build();
+    }
+
     @GetMapping
     public ApiResponse<List<ThreadResponse>> getUserThreads(){
         return ApiResponse.<List<ThreadResponse>>builder()
                 .result(threadService.getThreadsByUser())
+                .build();
+    }
+
+    @GetMapping("/previous_threads/{id}")
+    public ApiResponse<List<ThreadResponse>> getThreadById(
+            @PathVariable("id") String threadId
+    ){
+        return ApiResponse.<List<ThreadResponse>>builder()
+                .result(threadService.findPreviousThreads(threadId))
+                .build();
+    }
+
+    @GetMapping("/users/{userId}")
+    public ApiResponse<List<ThreadResponse>> getUserThreadsByUserId(
+            @PathVariable String userId
+    ){
+        return ApiResponse.<List<ThreadResponse>>builder()
+                .result(threadService.getThreadsByUserId(userId))
                 .build();
     }
 

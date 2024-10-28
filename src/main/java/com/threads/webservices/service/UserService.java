@@ -91,7 +91,7 @@ public class UserService {
 
     // goi method truoc roi kiem tra, neu id va jwt la user dang dang nhap thi return ket qua
     // du dung hay sai thi method van duoc goi
-    @PostAuthorize("returnObject.username == authentication.name")
+
     public UserResponse getUser(String id){
         log.info("In method get user by id");
         return UserResponse.fromUser(userRepository.findById(id)

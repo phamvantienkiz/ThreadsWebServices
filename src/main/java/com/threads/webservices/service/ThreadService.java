@@ -21,9 +21,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +40,39 @@ public class ThreadService {
     UserRepository userRepository;
     NotificationService notificationService;
     ThreadMapper threadMapper;
+
+    public ThreadResponse likeThread(String threadId) {
+        var context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        Thread thread = threadRepository.findById(threadId)
+                .orElseThrow(() -> new AppException(ErrorCode.THREAD_NOT_EXISTED));
+
+        thread.setLikeCount(thread.getLikeCount() + 1);
+
+        threadRepository.save(thread);
+        return ThreadResponse.fromThread(thread);
+    }
+
+
+    public List<ThreadResponse> findPreviousThreads(String threadId){
+        List<Thread> threads = threadRepository.findByPreviousThreadId(threadId);
+        return threads.stream().map(ThreadResponse::fromThread).toList();
+    }
+
+    public List<ThreadResponse> getThreadsByUserId(String userId) {
+        User userExits = userRepository.findById(userId).orElseThrow(
+                ()-> new AppException(ErrorCode.USER_NOT_EXISTED)
+        );
+
+        List<Thread> threads = threadRepository.findByUserId(userId);
+
+        return threads.stream().map(ThreadResponse::fromThread).toList();
+    }
+
 
     public List<ThreadResponse> replyThreads(String userId){
         List<Thread> threads = threadRepository.findByPreviousThread(userId);

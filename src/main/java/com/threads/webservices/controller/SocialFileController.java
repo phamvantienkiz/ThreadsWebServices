@@ -46,7 +46,6 @@ public class SocialFileController {
     }
 
     @GetMapping("/{fileType}/{fileName}")
-    @PreAuthorize("permitAll()")
     public ResponseEntity<?> viewImage(@PathVariable("fileType") SocialType fileType, @PathVariable("fileName") String filename) {
 
         String pathGet = "";
